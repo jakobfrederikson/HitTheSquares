@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 406064c075cd3b748b18e4b53dfe2e0f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - InstatiatedSquare: {fileID: 8601621782359614369, guid: 6216c85acfe9bce459ac8f3ba6b1b7c6, type: 3}
+  - CloneSquare: {fileID: 8601621782359614369, guid: 6216c85acfe9bce459ac8f3ba6b1b7c6, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
