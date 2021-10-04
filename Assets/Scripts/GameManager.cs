@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Testing if this comment makes it through the git push :) *04/10/2021*
+
     // Game objects.
     GameObject instantiatedSquare;
     public GameObject cloneSquare;
