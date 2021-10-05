@@ -16,14 +16,18 @@ public class GameManager : MonoBehaviour
     // Player stats.
     public Text Player_Clicks;
     public Text Squares_Clicked;
-    public Text Accuracy;    
+    public Text Accuracy;
+    public Text timerText;
 
     // Game variables.
     public static bool roundIsOver = false;
     public static bool squareWasClicked = false;
     public static int gameScore = 0;
     private int playerClicks = 0;
-    
+    public float roundTimer = 10;
+    private int seconds;
+    private int highscore;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +42,10 @@ public class GameManager : MonoBehaviour
         // Always spawn the first square in the middle.
         Vector2 StartPosition = new Vector2(0, 0);
         instantiatedSquare = (GameObject)Instantiate(cloneSquare, StartPosition, Quaternion.identity);
+
+        // Get player high score.
+        highscore = PlayerPrefs.GetInt("highscore", highscore);
+        Debug.Log("Highscore: " + highscore);
     }
 
     // Update is called once per frame
@@ -73,14 +81,33 @@ public class GameManager : MonoBehaviour
             Accuracy.text = accuracy.ToString() + "%";
 
             // Reset the game timer.
-            Timer.roundTimer = 4;
+            //roundTimer = 4;
 
             // Get rid of unnecessary objects.
             Destroy(instantiatedSquare);
 
+            // Save player score, clicks, and accuracy.
+            if (gameScore > highscore)
+            {
+                PlayerPrefs.SetInt("highscore", highscore);
+                Debug.Log("Highscore: " + highscore);
+            }
+          
             // Bring up the "Round complete" screen.
             completeLevelUI.SetActive(true);
         }
+
+        // Round time controller
+        if (roundTimer > 0)
+        {
+            roundTimer -= Time.deltaTime;
+            seconds = Mathf.RoundToInt(roundTimer);
+        }
+        else
+        {
+            roundIsOver = true;
+        }
+        timerText.text = seconds.ToString();
     }
 
     public void SpawnSquare()
