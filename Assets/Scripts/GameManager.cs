@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     GameObject instantiatedSquare;
     public GameObject cloneSquare;
     public GameObject completeLevelUI;
+    public GameObject highScoreUI;
 
     // Player stats.
     public Text Player_Clicks;
     public Text Squares_Clicked;
     public Text Accuracy;
     public Text timerText;
+    public Text High_Score;
 
     // Game variables.
     public static bool roundIsOver = false;
@@ -45,7 +47,6 @@ public class GameManager : MonoBehaviour
 
         // Get player high score.
         highscore = PlayerPrefs.GetInt("highscore", highscore);
-        Debug.Log("Highscore: " + highscore);
     }
 
     // Update is called once per frame
@@ -80,19 +81,19 @@ public class GameManager : MonoBehaviour
             int accuracy = Mathf.RoundToInt(accuracyf);
             Accuracy.text = accuracy.ToString() + "%";
 
-            // Reset the game timer.
-            //roundTimer = 4;
-
             // Get rid of unnecessary objects.
             Destroy(instantiatedSquare);
 
             // Save player score, clicks, and accuracy.
             if (gameScore > highscore)
             {
+                highscore = gameScore;
                 PlayerPrefs.SetInt("highscore", highscore);
-                Debug.Log("Highscore: " + highscore);
+                PlayerPrefs.Save();
+                High_Score.text = highscore.ToString();
+                highScoreUI.SetActive(true);
             }
-          
+
             // Bring up the "Round complete" screen.
             completeLevelUI.SetActive(true);
         }
